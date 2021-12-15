@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.21)
+project(Pong)
+add_executable(Pong main.cc)
+target_include_directories("../AGE4")
+target_link_libraries(Pong AGE4)

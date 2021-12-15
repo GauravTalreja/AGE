@@ -1,5 +1,9 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.13)
+
 project(Pong)
-add_executable(Pong main.cc)
-target_include_directories("../AGE4")
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(Pong main.cc Ball.cc Ball.h)
+
 target_link_libraries(Pong AGE4)

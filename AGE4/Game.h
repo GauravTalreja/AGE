@@ -7,7 +7,7 @@
 #include "Scene.h"
 
 class AGE4Game {
-  CursesView view;
+  CursesView view{*this};
   CursesController controller;
   void tick(AGE4InputAction inputAction);
 

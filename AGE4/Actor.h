@@ -71,6 +71,9 @@ public:
 
   void setBody(const AGE4ActorBody &body);
 
+  /*
+   * parent should always refer to the Scene that owns this Actor
+   */
   AGE4Actor(AGE4Scene *parent, AGE4ActorBody actorBody);
 
   virtual ~AGE4Actor() = 0;

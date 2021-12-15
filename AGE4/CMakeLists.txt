@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project(AGE4)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_COMPILER g++-10)
 
 add_library(AGE4 STATIC
         AGE4.h

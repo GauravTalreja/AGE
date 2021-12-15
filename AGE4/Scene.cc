@@ -54,7 +54,7 @@ void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
 }
 
 void AGE4Scene::checkAndResolveEdgeCollision(AGE4Actor *actor) {
-  auto body = actor->getBody();
+  const auto& body = actor->getBody();
   if (actor->isPlayerControlled() || isBorderRigid) {
     if (body.posX <= 0) {
       actor->collide(Border::left);

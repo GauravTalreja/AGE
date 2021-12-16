@@ -1,13 +1,13 @@
 #ifndef AGE4_ACTOR_H
 #define AGE4_ACTOR_H
 
+#include <compare>
+#include <memory>
+#include <string>
 #include "ActorBehavior.h"
 #include "Bitmap.h"
 #include "Borders.h"
 #include "InputActions.h"
-#include <compare>
-#include <memory>
-#include <string>
 
 using std::string;
 using std::unique_ptr;
@@ -28,22 +28,28 @@ struct AGE4ActorBody {
   float botRightX = posX, botRightY = posY;
 
   int height = 0;
-  AGE4Bitmap *bitmap;
+  std::shared_ptr<AGE4Bitmap> bitmap;
 
   // Comparison of bodies
-  std::weak_ordering operator<=>(const AGE4ActorBody &other) const = default;
-};
+  std::weak_ordering operator<=>(const AGE4ActorBody& other) const = default;
 
-const AGE4ActorBody EmptyBody{0,0,0,0,0, nullptr};
+  AGE4ActorBody();
+  AGE4ActorBody(float posX,
+                float posY,
+                float botRightX,
+                float botRightY,
+                int height,
+                AGE4Bitmap* bmp);
+};
 
 // Superclass of all Actors added to Levels in AGE4.
 class AGE4Actor {
   // For garbage collection
   unsigned int invisibleTicks;
 
-protected:
+ protected:
   // Access parent level's interface
-  AGE4Scene *parent;
+  AGE4Scene* parent;
 
   // doTick is called every Tick
   virtual void doTick(AGE4InputAction a) {}
@@ -55,31 +61,32 @@ protected:
   AGE4ActorBody body;
   AGE4ActorBody prevBody;
 
-public:
+ public:
   // Will be destroyed from the parent scene's actors vector next tick if true
   bool canBeDestructed;
 
   // Checks if Actor hasPlayerControlledBehavior
   bool isPlayerControlled();
 
-  virtual void collide(AGE4Actor *other) {}
+  virtual void collide(AGE4Actor* other) {}
 
   virtual void collide(Border border) {}
 
   void Tick(AGE4InputAction inputAction);
 
-  AGE4ActorBody &getPrevActorBody();
+  AGE4ActorBody& getPrevActorBody();
 
-  [[nodiscard]] const AGE4ActorBody &getBody() const;
+  [[nodiscard]] const AGE4ActorBody& getBody() const;
 
-  void setBody(const AGE4ActorBody &body);
+  void setBody(const AGE4ActorBody& body);
 
   /*
    * parent should always point to the Scene that owns this Actor
    */
-  explicit AGE4Actor(AGE4Scene *parent, AGE4ActorBody actorBody = EmptyBody);
+  explicit AGE4Actor(AGE4Scene* parent,
+                     AGE4ActorBody actorBody = AGE4ActorBody{});
 
   virtual ~AGE4Actor() = 0;
 };
 
-#endif // AGE4_ACTOR_H
+#endif  // AGE4_ACTOR_H

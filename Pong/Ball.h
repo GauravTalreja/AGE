@@ -6,7 +6,7 @@
 class Scoreboard;
 
 class Ball : public AGE4Actor {
-  static unique_ptr<AGE4Bitmap> ballMap;
+  static AGE4Bitmap ballMap;
   Scoreboard* scoreboard;
 
  public:

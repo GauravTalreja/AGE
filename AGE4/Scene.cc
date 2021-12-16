@@ -1,23 +1,23 @@
 #include "Scene.h"
 #include "Config.h"
 
-void AGE4Scene::tickEntities(AGE4InputAction inputAction) {
-  for (auto &e : actors) {
-    e->Tick(inputAction);
+void AGE4Scene::tickActors(AGE4InputAction inputAction) {
+  for (size_t i = 0; i < actors.size(); ++i) {
+    actors[i]->Tick(inputAction);
   }
 }
 
 void AGE4Scene::Tick(AGE4InputAction inputAction) {
-  tickEntities(inputAction);
+  tickActors(inputAction);
   doTick(inputAction);
   handleCollisions();
   destructGarbage();
 }
 
 void AGE4Scene::handleCollisions() {
-  for (auto &a : actors) {
+  for (auto& a : actors) {
     checkAndResolveEdgeCollision(a.get());
-    for (auto &b : actors) {
+    for (auto& b : actors) {
       if (b != a) {
         checkAndResolveCollision(a.get(), b.get());
       }
@@ -36,15 +36,15 @@ void AGE4Scene::destructGarbage() {
   }
 }
 
-const std::vector<unique_ptr<AGE4Actor>> &AGE4Scene::getActors() const {
+const std::vector<unique_ptr<AGE4Actor>>& AGE4Scene::getActors() const {
   return actors;
 }
 
-AGE4Actor* AGE4Scene::newActor(unique_ptr<AGE4Actor> &&actor) {
+AGE4Actor* AGE4Scene::newActor(unique_ptr<AGE4Actor>&& actor) {
   actors.push_back(std::move(actor));
   return actors[actors.size() - 1].get();
 }
-void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
+void AGE4Scene::checkAndResolveCollision(AGE4Actor* a, AGE4Actor* b) {
   auto bodyA = a->getBody(), bodyB = b->getBody();
   if (bodyA.height == bodyB.height &&
       !(bodyA.botRightX < bodyB.posX || bodyB.botRightX < bodyA.posX ||
@@ -54,7 +54,7 @@ void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
   }
 }
 
-void AGE4Scene::checkAndResolveEdgeCollision(AGE4Actor *actor) const {
+void AGE4Scene::checkAndResolveEdgeCollision(AGE4Actor* actor) const {
   const auto& body = actor->getBody();
   if (actor->isPlayerControlled() || isBorderRigid) {
     if (body.posX <= 0) {

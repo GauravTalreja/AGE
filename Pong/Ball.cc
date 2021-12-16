@@ -14,11 +14,11 @@ void Ball::collide(Border border) {
   switch (border) {
     case Border::up:
       behaviors->bounce(Axis::vertical);
-      behaviors->doBehavior(AGE4InputAction::empty);
+      behaviors->doBehavior(body, AGE4InputAction::empty);
       break;
     case Border::down:
       behaviors->bounce(Axis::vertical);
-      behaviors->doBehavior(AGE4InputAction::empty);
+      behaviors->doBehavior(body, AGE4InputAction::empty);
       break;
     case Border::left:
       scoreboard->right++;

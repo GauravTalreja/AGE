@@ -35,7 +35,7 @@ void AGE4Actor::Tick(AGE4InputAction inputAction) {
   prevBody = body;
   doTick(inputAction);
   if (behaviors) {
-    behaviors->doBehavior(inputAction);
+    behaviors->doBehavior(body, inputAction);
   }
   if (false) {
     ++invisibleTicks;
@@ -51,7 +51,7 @@ AGE4Actor::AGE4Actor(AGE4Scene* parent, AGE4ActorBody actorBody)
     : invisibleTicks{0},
       parent{parent},
       body{actorBody},
-      behaviors{make_unique<AGE4ActorBehaviorBase>(actorBody)},
+      behaviors{make_unique<AGE4ActorBehaviorBase>()},
       canBeDestructed{false} {}
 
 const AGE4ActorBody& AGE4Actor::getBody() const {

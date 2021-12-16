@@ -6,4 +6,3 @@
 #include "Scene.h"
 #include "ActorBehavior.h"
 #include "Bitmap.h"
-// include header so everything can just use this

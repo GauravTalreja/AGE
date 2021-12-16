@@ -9,8 +9,10 @@
 
 class Ball : public AGE4Actor {
   static unique_ptr<AGE4Bitmap> ballMap;
-public:
-  Ball(AGE4Scene *);
+
+ public:
+  void collide(Border border) override;
+  Ball(AGE4Scene*);
 };
 
-#endif // FINAL_BALL_H
+#endif  // FINAL_BALL_H

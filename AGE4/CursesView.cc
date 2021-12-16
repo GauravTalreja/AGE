@@ -1,11 +1,11 @@
 #include "CursesView.h"
-#include "Config.h"
-#include "Game.h"
+#include <ncurses.h>
 #include <algorithm>
 #include <cmath>
-#include <ncurses.h>
+#include "Config.h"
+#include "Game.h"
 
-CursesView::CursesView(AGE4Game &g) : g{g} {
+CursesView::CursesView(AGE4Game& g) : g{g} {
   initscr();
   noecho();
   raw();
@@ -26,7 +26,7 @@ void CursesView::printBorders() const {
   mvprintw(0, 0, boardTop.c_str());
   for (int i = 1; i < borderRows; i++) {
     mvaddch(i, 0, '|');
-    mvaddch(i, borderColumns, '|');
+    mvaddch(i, borderColumns - 1, '|');
   }
   mvprintw(borderRows, 0, boardTop.c_str());
 }
@@ -38,7 +38,7 @@ void CursesView::printStatus() const {
 }
 
 struct height_compare {
-  inline bool operator()(const AGE4Actor *a, const AGE4Actor *b) {
+  inline bool operator()(const AGE4Actor* a, const AGE4Actor* b) {
     if (a->getBody().height == b->getBody().height) {
       return (a < b);
     }
@@ -47,12 +47,12 @@ struct height_compare {
 };
 
 void CursesView::printEntities() const {
-  std::vector<AGE4Actor *> actors;
-  for (auto &actor : g.scene->getActors()) {
+  std::vector<AGE4Actor*> actors;
+  for (auto& actor : g.scene->getActors()) {
     actors.push_back(actor.get());
   }
   std::sort(actors.begin(), actors.end(), height_compare());
-  for (auto &actor : actors) {
+  for (auto& actor : actors) {
     auto posX = lround(actor->getBody().posX);
     auto posY = lround(actor->getBody().posY);
     for (auto c : *actor->getBody().bitmap) {
@@ -66,4 +66,6 @@ void CursesView::printEntities() const {
   }
 }
 
-CursesView::~CursesView() { endwin(); }
+CursesView::~CursesView() {
+  endwin();
+}

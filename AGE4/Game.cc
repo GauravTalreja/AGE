@@ -1,13 +1,14 @@
 #include "Game.h"
-#include "Config.h"
 #include <thread>
+#include "Config.h"
 
-void AGE4Game::tick(AGE4InputAction inputAction) { scene->Tick(inputAction); }
+void AGE4Game::tick(AGE4InputAction inputAction) {
+  scene->Tick(inputAction);
+}
 
 void AGE4Game::go() {
   AGE4InputAction inputAction;
   while (inputAction != AGE4InputAction::zero) {
-
     auto startTime = std::chrono::high_resolution_clock::now();
     inputAction = CursesController::getNextInputAction();
     tick(inputAction);
@@ -22,3 +23,5 @@ void AGE4Game::go() {
     }
   }
 }
+
+AGE4Game::AGE4Game() : view{CursesView{*this}}, controller{} {}

@@ -7,13 +7,14 @@
 #include "Scene.h"
 
 class AGE4Game {
-  CursesView view{*this};
+  CursesView view;
   CursesController controller;
   void tick(AGE4InputAction inputAction);
 
-public:
-  std::unique_ptr<AGE4Scene> scene;
+ public:
+  AGE4Scene* scene;
   void go();
+  AGE4Game();
 };
 
-#endif // AGE4_GAME_H
+#endif  // AGE4_GAME_H

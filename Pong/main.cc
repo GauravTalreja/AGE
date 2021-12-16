@@ -1,9 +1,11 @@
 #include <AGE4.h>
 #include "Ball.h"
 
-int main () {
+int main() {
   AGE4Game pong;
   AGE4Scene mainLevel;
   mainLevel.isBorderRigid = true;
   mainLevel.newActor(std::make_unique<Ball>(&mainLevel));
+  pong.scene = &mainLevel;
+  pong.go();
 }

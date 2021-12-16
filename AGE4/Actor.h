@@ -34,6 +34,8 @@ struct AGE4ActorBody {
   std::weak_ordering operator<=>(const AGE4ActorBody &other) const = default;
 };
 
+const AGE4ActorBody EmptyBody{0,0,0,0,0, nullptr};
+
 // Superclass of all Actors added to Levels in AGE4.
 class AGE4Actor {
   // For garbage collection
@@ -75,7 +77,7 @@ public:
   /*
    * parent should always point to the Scene that owns this Actor
    */
-  explicit AGE4Actor(AGE4Scene *parent, AGE4ActorBody actorBody = AGE4ActorBody{});
+  explicit AGE4Actor(AGE4Scene *parent, AGE4ActorBody actorBody = EmptyBody);
 
   virtual ~AGE4Actor() = 0;
 };

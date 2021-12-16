@@ -55,12 +55,14 @@ void CursesView::printEntities() const {
   for (auto& actor : actors) {
     auto posX = lround(actor->getBody().posX);
     auto posY = lround(actor->getBody().posY);
-    for (auto c : *actor->getBody().bitmap) {
-      auto outX = posX + c.X;
-      auto outY = posY + c.Y;
-      if (outX >= 0 && outX < borderColumns - 1 && outY >= 0 &&
-          outY < borderRows - 1) {
-        mvaddch(1 + outY, 1 + outX, c.C);
+    if (auto bmp = actor->getBody().bitmap) {
+      for (auto c : *bmp) {
+        auto outX = posX + c.X;
+        auto outY = posY + c.Y;
+        if (outX >= 0 && outX < borderColumns - 1 && outY >= 0 &&
+            outY < borderRows - 1) {
+          mvaddch(1 + outY, 1 + outX, c.C);
+        }
       }
     }
   }

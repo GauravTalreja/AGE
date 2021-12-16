@@ -3,6 +3,7 @@
 
 enum class AGE4InputAction {
   null,
+  empty,
   a,
   b,
   c,
@@ -44,7 +45,5 @@ enum class AGE4InputAction {
   right,
   down
 };
-
-enum Axis { horizontal, vertical };
 
 #endif // AGE4_INPUT_ACTION_H

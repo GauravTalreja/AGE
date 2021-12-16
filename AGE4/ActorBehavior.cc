@@ -21,9 +21,9 @@ bool AGE4ActorBehaviorDecorator::hasPlayerControlledBehavior() {
 }
 
 AGE4ActorBehaviorDecorator::AGE4ActorBehaviorDecorator(
-    std::unique_ptr<AGE4ActorBehavior> next, AGE4InputAction gate)
+    unique_ptr<AGE4ActorBehavior> &&next, AGE4InputAction inputAction)
     : AGE4ActorBehavior{*next}, next{std::move(next)}, requiredInputAction{
-                                                           gate} {}
+                                                           inputAction} {}
 
 void Velocity::doBehavior(AGE4InputAction inputAction) {
   angle = static_cast<float>(static_cast<int>(angle) % 360);
@@ -37,17 +37,16 @@ void Velocity::doBehavior(AGE4InputAction inputAction) {
 
 void Velocity::bounce(Axis a) {
   angle = static_cast<float>(static_cast<int>(angle) % 360);
-  if (a == horizontal) {
+  if (a == Axis::horizontal) {
     angle = 360 - angle;
   }
-  if (a == vertical) {
+  if (a == Axis::vertical) {
     angle = 180 - angle;
   }
 }
 
-Velocity::Velocity(std::unique_ptr<AGE4ActorBehavior> component, float dist,
-                   float angle,
-                   AGE4InputAction requiredInputAction = AGE4InputAction::null)
+Velocity::Velocity(std::unique_ptr<AGE4ActorBehavior> &&component, float dist,
+                   float angle, AGE4InputAction requiredInputAction)
     : AGE4ActorBehaviorDecorator{std::move(component), requiredInputAction},
       magnitude{dist}, angle{angle} {}
 
@@ -62,7 +61,7 @@ void PhaseShift::doBehavior(AGE4InputAction inputAction) {
 
 void PhaseShift::bounce(Axis a) { next->bounce(a); }
 
-PhaseShift::PhaseShift(std::unique_ptr<AGE4ActorBehavior> component,
+PhaseShift::PhaseShift(unique_ptr<AGE4ActorBehavior> &&component,
                        std::vector<AGE4Bitmap *> phases,
                        AGE4InputAction inputAction = AGE4InputAction::null)
     : AGE4ActorBehaviorDecorator{std::move(component), inputAction},

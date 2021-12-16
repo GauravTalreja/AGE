@@ -40,8 +40,9 @@ const std::vector<unique_ptr<AGE4Actor>> &AGE4Scene::getActors() const {
   return actors;
 }
 
-void AGE4Scene::newActor(unique_ptr<AGE4Actor> &&actor) {
+AGE4Actor* AGE4Scene::newActor(unique_ptr<AGE4Actor> &&actor) {
   actors.push_back(std::move(actor));
+  return actors[actors.size() - 1].get();
 }
 void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
   auto bodyA = a->getBody(), bodyB = b->getBody();
@@ -53,7 +54,7 @@ void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
   }
 }
 
-void AGE4Scene::checkAndResolveEdgeCollision(AGE4Actor *actor) {
+void AGE4Scene::checkAndResolveEdgeCollision(AGE4Actor *actor) const {
   const auto& body = actor->getBody();
   if (actor->isPlayerControlled() || isBorderRigid) {
     if (body.posX <= 0) {

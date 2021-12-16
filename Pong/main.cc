@@ -1,11 +1,14 @@
-#include <AGE4.h>
 #include "Ball.h"
+#include "Scoreboard.h"
+#include <AGE4.h>
 
 int main() {
   AGE4Game pong;
   AGE4Scene mainLevel;
   mainLevel.isBorderRigid = true;
-  mainLevel.newActor(std::make_unique<Ball>(&mainLevel));
+  auto score = dynamic_cast<Scoreboard *>(
+      mainLevel.newActor(std::make_unique<Scoreboard>(&mainLevel)));
+  auto ball = mainLevel.newActor(std::make_unique<Ball>(&mainLevel, score));
   pong.scene = &mainLevel;
   pong.go();
 }

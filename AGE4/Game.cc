@@ -7,7 +7,7 @@ void AGE4Game::tick(AGE4InputAction inputAction) {
 }
 
 void AGE4Game::go() {
-  AGE4InputAction inputAction;
+  AGE4InputAction inputAction = CursesController::getNextInputAction();
   while (inputAction != AGE4InputAction::zero) {
     auto startTime = std::chrono::high_resolution_clock::now();
     inputAction = CursesController::getNextInputAction();

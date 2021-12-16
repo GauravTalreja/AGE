@@ -15,11 +15,11 @@ void AGE4Scene::Tick(AGE4InputAction inputAction) {
 }
 
 void AGE4Scene::handleCollisions() {
-  for (auto& a : actors) {
-    checkAndResolveEdgeCollision(a.get());
-    for (auto& b : actors) {
-      if (b != a) {
-        checkAndResolveCollision(a.get(), b.get());
+  for (size_t i = 0; i < actors.size(); ++i) {
+    checkAndResolveEdgeCollision(actors[i].get());
+    for (size_t j = 0; j < actors.size(); ++j) {
+      if (i != j) {
+        checkAndResolveCollision(actors[i].get(), actors[j].get());
       }
     }
   }

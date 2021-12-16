@@ -5,5 +5,4 @@ CMakeCache.txt
 *.cmake
 */*.cmake
 */CMakeFiles
-Pong
 *.a

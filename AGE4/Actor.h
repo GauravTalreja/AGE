@@ -31,7 +31,7 @@ struct AGE4ActorBody {
   AGE4Bitmap* bitmap;
 
   // Comparison of bodies
-  std::strong_ordering operator<=>(const AGE4ActorBody& other) const;
+  std::weak_ordering operator<=>(const AGE4ActorBody& other) const = default;
 };
 
 // Superclass of all Actors added to Levels in AGE4.

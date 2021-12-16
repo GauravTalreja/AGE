@@ -1,5 +1,4 @@
 #include "CursesController.h"
-#include "CollisionHandler.h"
 #include "CursesView.h"
 #include "Actor.h"
 #include "InputActions.h"

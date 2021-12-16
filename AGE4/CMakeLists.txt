@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.13)
 project(AGE4)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_COMPILER g++-10)
+set(CMAKE_CXX_COMPILER g++)
 
 add_library(AGE4 STATIC
         AGE4.h
@@ -22,6 +22,14 @@ add_library(AGE4 STATIC
         ActorBehavior.h
         Bitmap.cc
         Bitmap.h
-        CursesController.cc Config.h Borders.h)
+        CursesController.cc
+        Config.h
+        Borders.h)
 
 target_include_directories(AGE4 PUBLIC ./)
+
+set(CURSES_NEED_NCURSES TRUE)
+find_package(Curses REQUIRED)
+
+target_include_directories(AGE4 PRIVATE ${CURSES_INCLUDE_DIR})
+target_link_libraries(AGE4 PRIVATE ${CURSES_LIBRARIES})

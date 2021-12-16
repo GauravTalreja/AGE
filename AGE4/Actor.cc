@@ -3,22 +3,6 @@
 
 using std::make_unique;
 
-std::strong_ordering
-AGE4ActorBody::operator<=>(const AGE4ActorBody &other) const {
-  if (auto cmp = static_cast<int>(posX) <=> static_cast<int>(other.posX);
-      cmp != nullptr) {
-    return cmp;
-  }
-  if (auto cmp = static_cast<int>(posY) <=> static_cast<int>(other.posY);
-      cmp != nullptr) {
-    return cmp;
-  }
-  if (auto cmp = height <=> other.height; cmp != nullptr) {
-    return cmp;
-  }
-  return *bitmap <=> *other.bitmap;
-}
-
 bool AGE4Actor::isPlayerControlled() {
   if (behaviors) {
     return behaviors->hasPlayerControlledBehavior();
@@ -54,4 +38,4 @@ void AGE4Actor::setBody(const AGE4ActorBody &body) { AGE4Actor::body = body; }
 
 AGE4ActorBody &AGE4Actor::getPrevActorBody() { return prevBody; }
 
-AGE4Actor::~AGE4Actor() = default;
+AGE4Actor::~AGE4Actor() {};

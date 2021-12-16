@@ -41,7 +41,7 @@ const std::vector<unique_ptr<AGE4Actor>> &AGE4Scene::getActors() const {
 }
 
 void AGE4Scene::newActor(unique_ptr<AGE4Actor> &&actor) {
-  actors.push_back(actor);
+  actors.push_back(std::move(actor));
 }
 void AGE4Scene::checkAndResolveCollision(AGE4Actor *a, AGE4Actor *b) {
   auto bodyA = a->getBody(), bodyB = b->getBody();

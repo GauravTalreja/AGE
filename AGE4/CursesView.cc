@@ -38,17 +38,19 @@ void CursesView::printStatus() const {
 }
 
 struct height_compare {
-  inline bool operator()(const std::unique_ptr<AGE4Actor> &a,
-                         const std::unique_ptr<AGE4Actor> &b) {
+  inline bool operator()(const AGE4Actor *a, const AGE4Actor *b) {
     if (a->getBody().height == b->getBody().height) {
-      return (a.get() < b.get());
+      return (a < b);
     }
     return (a->getBody().height < b->getBody().height);
   }
 };
 
 void CursesView::printEntities() const {
-  auto &actors = g.scene->getActors();
+  std::vector<AGE4Actor *> actors;
+  for (auto &actor : g.scene->getActors()) {
+    actors.push_back(actor.get());
+  }
   std::sort(actors.begin(), actors.end(), height_compare());
   for (auto &actor : actors) {
     auto posX = lround(actor->getBody().posX);

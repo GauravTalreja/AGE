@@ -28,7 +28,7 @@ struct AGE4ActorBody {
   float botRightX = posX, botRightY = posY;
 
   int height = 0;
-  std::shared_ptr<AGE4Bitmap> bitmap;
+  AGE4Bitmap* bitmap;
 
   // Comparison of bodies
   std::weak_ordering operator<=>(const AGE4ActorBody& other) const = default;

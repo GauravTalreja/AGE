@@ -22,7 +22,7 @@ AGE4ActorBody::AGE4ActorBody(float posX,
       botRightX{botRightX},
       botRightY{botRightY},
       height{height},
-      bitmap{bitmap} {}
+      bitmap{bmp} {}
 
 bool AGE4Actor::isPlayerControlled() {
   if (behaviors) {

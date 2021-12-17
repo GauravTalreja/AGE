@@ -2,13 +2,16 @@
 #include "Paddle.h"
 #include "Scoreboard.h"
 
+bool Ball::flip = true;
+
 AGE4Bitmap Ball::ballMap{"o"};
 
 Ball::Ball(AGE4Scene *parent, Scoreboard *scoreboard)
     : AGE4Actor{parent, AGE4ActorBody{40, 10, 40, 10, 0, &Ball::ballMap}},
       scoreboard{scoreboard} {
-  behaviors = std::move(std::unique_ptr<AGE4ActorBehavior>{
-      new Velocity{std::move(behaviors), -3, 270}});
+  behaviors = std::move(std::unique_ptr<AGE4ActorBehavior>{new Velocity{
+      std::move(behaviors), static_cast<float>((flip) ? 3 : -3), 270}});
+  flip = !flip;
 }
 
 void Ball::collide(Border border) {

@@ -6,6 +6,7 @@
 class Scoreboard;
 
 class Ball : public AGE4Actor {
+  static bool flip;
   static AGE4Bitmap ballMap;
   Scoreboard* scoreboard;
 

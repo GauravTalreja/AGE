@@ -15,7 +15,7 @@ Paddle::Paddle(AGE4Scene *parent, AGE4InputAction down, AGE4InputAction up,
                             static_cast<float>(xPos + 2),
                             static_cast<float>(yPos + 4), 0, &paddle}} {
   behaviors = std::make_unique<Velocity>(
-      std::make_unique<Velocity>(std::make_unique<AGE4ActorBehaviorBase>(), 1,
+      std::make_unique<Velocity>(std::make_unique<AGE4ActorBehaviorBase>(), 2,
                                  0, down),
-      1, 180, up);
+      2, 180, up);
 }

@@ -20,13 +20,25 @@ class AGE4Scene;
  * * Position in the 2D plane
  * * Height
  * */
-struct AGE4ActorBody {
+class AGE4ActorBody {
   // top left position, primary position of the entity
   float posX = 0, posY = 0;
 
+public:
+  void offsetPosX(float posX);
+  void offsetPosY(float posY);
+
+private:
   // bottom right, used for AABB collision calculations
   float botRightX = posX, botRightY = posY;
 
+public:
+  float getPosX() const;
+  float getPosY() const;
+  float getBotRightX() const;
+  float getBotRightY() const;
+
+public:
   int height = 0;
   AGE4Bitmap* bitmap;
 

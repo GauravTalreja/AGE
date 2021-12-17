@@ -6,7 +6,7 @@
 
 bool AGE4ActorBehaviorBase::hasPlayerControlledBehavior() { return false; }
 
-void AGE4ActorBehaviorBase::doBehavior(AGE4ActorBody&, AGE4InputAction) {}
+void AGE4ActorBehaviorBase::doBehavior(AGE4ActorBody &, AGE4InputAction) {}
 
 void AGE4ActorBehaviorBase::bounce(Axis) {}
 
@@ -20,12 +20,13 @@ AGE4ActorBehaviorDecorator::AGE4ActorBehaviorDecorator(
     : AGE4ActorBehavior{*next}, next{std::move(next)}, requiredInputAction{
                                                            inputAction} {}
 
-void Velocity::doBehavior(AGE4ActorBody& body, AGE4InputAction inputAction) {
+void Velocity::doBehavior(AGE4ActorBody &body, AGE4InputAction inputAction) {
   angle = static_cast<float>(static_cast<int>(angle) % 360);
   if (requiredInputAction == AGE4InputAction::null ||
       requiredInputAction == inputAction) {
-    body.posX += static_cast<float>(std::sin(angle * PI / 180)) * magnitude;
-    body.posY -= static_cast<float>(std::cos(angle * PI / 180)) * magnitude;
+    body.offsetPosX(static_cast<float>(std::sin(angle * PI / 180)) * magnitude);
+    body.offsetPosY(-static_cast<float>(std::cos(angle * PI / 180)) *
+                    magnitude);
   }
   next->doBehavior(body, inputAction);
 }
@@ -45,7 +46,7 @@ Velocity::Velocity(std::unique_ptr<AGE4ActorBehavior> &&component, float dist,
     : AGE4ActorBehaviorDecorator{std::move(component), requiredInputAction},
       magnitude{dist}, angle{angle} {}
 
-void PhaseShift::doBehavior(AGE4ActorBody& body, AGE4InputAction inputAction) {
+void PhaseShift::doBehavior(AGE4ActorBody &body, AGE4InputAction inputAction) {
   if (requiredInputAction == AGE4InputAction::null ||
       requiredInputAction == inputAction) {
     activeIndex = (activeIndex + 1) % phases.size();

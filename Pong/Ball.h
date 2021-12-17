@@ -12,6 +12,7 @@ class Ball : public AGE4Actor {
  public:
   void collide(Border border) override;
   Ball(AGE4Scene*, Scoreboard*);
+  void collide(AGE4Actor *other) override;
 };
 
 #endif  // PONG_BALL_H

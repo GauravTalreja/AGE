@@ -4,25 +4,26 @@
 using std::make_unique;
 
 AGE4ActorBody::AGE4ActorBody()
-    : posX{0},
-      posY{0},
-      botRightX{0},
-      botRightY{0},
-      height{0},
-      bitmap{nullptr} {}
+    : posX{0}, posY{0}, botRightX{0}, botRightY{0}, height{0}, bitmap{nullptr} {
+}
 
-AGE4ActorBody::AGE4ActorBody(float posX,
-                             float posY,
-                             float botRightX,
-                             float botRightY,
-                             int height,
-                             AGE4Bitmap* bmp)
-    : posX{posX},
-      posY{posY},
-      botRightX{botRightX},
-      botRightY{botRightY},
-      height{height},
-      bitmap{bmp} {}
+AGE4ActorBody::AGE4ActorBody(float posX, float posY, float botRightX,
+                             float botRightY, int height, AGE4Bitmap *bmp)
+    : posX{posX}, posY{posY}, botRightX{botRightX}, botRightY{botRightY},
+      height{height}, bitmap{bmp} {}
+
+float AGE4ActorBody::getPosX() const { return posX; }
+float AGE4ActorBody::getPosY() const { return posY; }
+float AGE4ActorBody::getBotRightX() const { return botRightX; }
+float AGE4ActorBody::getBotRightY() const { return botRightY; }
+void AGE4ActorBody::offsetPosX(float offset) {
+  posX += offset;
+  botRightX += offset;
+}
+void AGE4ActorBody::offsetPosY(float offset) {
+  posY += offset;
+  botRightY += offset;
+}
 
 bool AGE4Actor::isPlayerControlled() {
   if (behaviors) {
@@ -47,23 +48,14 @@ void AGE4Actor::Tick(AGE4InputAction inputAction) {
   }
 }
 
-AGE4Actor::AGE4Actor(AGE4Scene* parent, AGE4ActorBody actorBody)
-    : invisibleTicks{0},
-      parent{parent},
-      body{actorBody},
-      behaviors{make_unique<AGE4ActorBehaviorBase>()},
-      canBeDestructed{false} {}
+AGE4Actor::AGE4Actor(AGE4Scene *parent, AGE4ActorBody actorBody)
+    : invisibleTicks{0}, parent{parent}, body{actorBody},
+      behaviors{make_unique<AGE4ActorBehaviorBase>()}, canBeDestructed{false} {}
 
-const AGE4ActorBody& AGE4Actor::getBody() const {
-  return body;
-}
+const AGE4ActorBody &AGE4Actor::getBody() const { return body; }
 
-void AGE4Actor::setBody(const AGE4ActorBody& body) {
-  AGE4Actor::body = body;
-}
+void AGE4Actor::setBody(const AGE4ActorBody &body) { AGE4Actor::body = body; }
 
-AGE4ActorBody& AGE4Actor::getPrevActorBody() {
-  return prevBody;
-}
+AGE4ActorBody &AGE4Actor::getPrevActorBody() { return prevBody; }
 
 AGE4Actor::~AGE4Actor(){};

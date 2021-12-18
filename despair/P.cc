@@ -19,14 +19,14 @@ void P::collide(AGE4Actor *other) {
 }
 
 P::P(AGE4Scene *parent)
-    : AGE4Actor(parent, AGE4ActorBody{76, 19, 76, 19, 0, &p}) {
+    : AGE4Actor(parent, AGE4ActorBody{69, 10, 69, 10, 0, &p}) {
   behaviors = std::make_unique<Velocity>(
       std::make_unique<Velocity>(
           std::make_unique<Velocity>(
               std::make_unique<Velocity>(
-                  std::make_unique<AGE4ActorBehaviorBase>(), 1, 0,
+                  std::make_unique<AGE4ActorBehaviorBase>(), 1, 180,
                   AGE4InputAction::down),
-              1, 180, AGE4InputAction::up),
-          1, 90, AGE4InputAction::left),
-      1, 360, AGE4InputAction::right);
+              1, 0, AGE4InputAction::up),
+          1, 360, AGE4InputAction::left),
+      1, 90, AGE4InputAction::right);
 }

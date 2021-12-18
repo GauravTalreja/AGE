@@ -4,4 +4,6 @@ project(FINAL)
 
 add_subdirectory(AGE4)
 
+add_subdirectory(despair)
+
 add_subdirectory(Pong)

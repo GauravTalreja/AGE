@@ -13,7 +13,7 @@ class AGE4ActorBehaviorDecorator;
 
 class AGE4ActorBehavior {
 public:
-  virtual void doBehavior(AGE4ActorBody& body, AGE4InputAction) = 0;
+  virtual void doBehavior(AGE4ActorBody &body, AGE4InputAction) = 0;
 
   virtual bool hasPlayerControlledBehavior() = 0;
 
@@ -24,7 +24,7 @@ public:
 
 class AGE4ActorBehaviorBase : public AGE4ActorBehavior {
 public:
-  void doBehavior(AGE4ActorBody& body, AGE4InputAction inputAction) override;
+  void doBehavior(AGE4ActorBody &body, AGE4InputAction inputAction) override;
   void bounce(Axis) override;
   bool hasPlayerControlledBehavior() override;
 };
@@ -44,7 +44,7 @@ public:
 class Velocity : public AGE4ActorBehaviorDecorator {
 public:
   float magnitude, angle;
-  void doBehavior(AGE4ActorBody& body, AGE4InputAction inputAction) override;
+  void doBehavior(AGE4ActorBody &body, AGE4InputAction inputAction) override;
   void bounce(Axis a) override;
   Velocity(std::unique_ptr<AGE4ActorBehavior> &&component, float dist,
            float angle,
@@ -56,10 +56,11 @@ class PhaseShift : public AGE4ActorBehaviorDecorator {
 
 public:
   std::vector<AGE4Bitmap *> phases;
-  void doBehavior(AGE4ActorBody& body, AGE4InputAction inputAction) override;
+  void doBehavior(AGE4ActorBody &body, AGE4InputAction inputAction) override;
   void bounce(Axis a) override;
   PhaseShift(std::unique_ptr<AGE4ActorBehavior> &&component,
-             std::vector<AGE4Bitmap *> phases, AGE4InputAction inputAction);
+             std::vector<AGE4Bitmap *> phases,
+             AGE4InputAction inputAction = AGE4InputAction::null);
 };
 
 #endif // AGE4_MOVEMENT_H

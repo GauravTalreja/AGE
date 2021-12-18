@@ -2,7 +2,8 @@
 #include "Config.h"
 
 void AGE4Scene::tickActors(AGE4InputAction inputAction) {
-  for (size_t i = 0; i < actors.size(); ++i) {
+  auto end = actors.size();
+  for (size_t i = 0; i < end; ++i) {
     actors[i]->Tick(inputAction);
   }
 }

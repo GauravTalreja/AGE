@@ -38,7 +38,8 @@ void AGE4Actor::Tick(AGE4InputAction inputAction) {
   if (behaviors) {
     behaviors->doBehavior(body, inputAction);
   }
-  if (false) {
+  if (body.getBotRightX() < 1 || body.getPosX() > 78 || body.getPosY() > 22 ||
+      body.getBotRightY() < 1) {
     ++invisibleTicks;
   } else {
     invisibleTicks = 0;

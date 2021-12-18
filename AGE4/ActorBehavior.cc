@@ -59,6 +59,6 @@ void PhaseShift::bounce(Axis a) { next->bounce(a); }
 
 PhaseShift::PhaseShift(unique_ptr<AGE4ActorBehavior> &&component,
                        std::vector<AGE4Bitmap *> phases,
-                       AGE4InputAction inputAction = AGE4InputAction::null)
+                       AGE4InputAction inputAction)
     : AGE4ActorBehaviorDecorator{std::move(component), inputAction},
       activeIndex{0}, phases{std::move(phases)} {}
